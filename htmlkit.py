@@ -43,9 +43,25 @@ class itemlist:
 		return ("\n".join(listtext))
 	def get_body(self):
 		return(self.body)
-	def additem(self,text):
+	def add_item(self,text):
 		self.body.append("<li>" + text + "</li>")
+	def add_list(self,list):
+		for item in list:
+			self.body.append("<li>" + item + "</li>")
+
+class table:
+	def __init__(self):
+		self.heads = []
+		self.body = []
 		
+	def get_table(self):
+		tabletext = []
+		tabletext.append("<table")
+		tabletext.extend(self.body)
+		tabletext.append("</table>")
+		return("\n".join(tabletext))
+	
+	
 def tag(tagname,text):
 	return("<{0}>{1}</{0}>".format(tagname,text))
 def heading(level,text,idno=0):
@@ -53,3 +69,12 @@ def heading(level,text,idno=0):
 	#return("<h{0}>{1}</h{0}>".format(level,text))
 	return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
 
+
+#### MAIN ####
+
+def main():
+	print("running as program rather than module")
+	print("end")
+
+if __name__ == "__main__":
+	main()
