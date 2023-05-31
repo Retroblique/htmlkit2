@@ -78,16 +78,22 @@ class table:
 	
 def tag(tagname,text):
 	return("<{0}>{1}</{0}>".format(tagname,text))
-def heading(level,text,idno=0):
-	id = "id" + str(idno)
+def heading(level,text,idno=""):
+	if idno != "":
+		#id = ' id="id=' + idno + '"'
+		id = f'id="id{idno}"'
+	else:
+		id = ""
 	#return("<h{0}>{1}</h{0}>".format(level,text))
-	return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
+	#return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
+	return(f'<h{level}>{text}</h{level}{id}>')
 
 
 #### MAIN ####
 
 def main():
 	print("running as program rather than module")
+	print("end")
 	
 if __name__ == "__main__":
 	main()
