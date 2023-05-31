@@ -30,6 +30,14 @@ class htmlpage:
 	def append_body(self,text):
 		"""adds text to end of html body"""
 		self.body.append(text)
+		
+	def save(self,filename):
+		"""writes page html"""
+		fileout = open(filename,"w")
+		fileout.write(self.page())
+		fileout.close()
+	
+	
 	
 
 class itemlist:
