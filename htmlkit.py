@@ -58,23 +58,30 @@ class itemlist:
 			self.body.append("<li>" + item + "</li>")
 
 class table:
+	"""class to create simple html tables"""
 	def __init__(self):
 		self.heads = []
 		self.body = []
 		self.currentrow = []
 	def add_row(self,text):
+		"""add row of items to table. text will be treated as a list"""
 		self.body.append(text)
 	def new_row(self):
+		"""starts new table row. add items with add_cell. complete with end_row"""
 		self.currentrow = []
 	def add_cell(self,text):
+		"""adds cell (table data) to row. new_row should be called first"""
 		self.currentrow.append(text)
 	def end_row(self):
+		"""adds row to table. row should be started with new_row and populated with add_cell. row will be lost if this method is not called"""
 		self.body.append(self.currentrow)
 	def add_head(self,text):
+		"""adds table column heading (table head) to table"""
 		self.heads.append(text)
 	
 	
 	def get_table(self):
+		"""returns complete html table code"""
 		tabletext = []
 		tabletext.append("<table>")
 		#tabletext.extend(self.body)
