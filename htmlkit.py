@@ -62,11 +62,19 @@ class table:
 		self.currentrow.append(text)
 	def end_row(self):
 		self.body.append(self.currentrow)
+	def add_head(self,text):
+		self.heads.append(text)
+	
 	
 	def get_table(self):
 		tabletext = []
 		tabletext.append("<table>")
 		#tabletext.extend(self.body)
+		if len(self.heads) > 0:
+			tabletext.append("<tr>")
+			for cell in self.heads:
+				tabletext.append("<th>" + cell + "</th>")
+			tabletext.append("</tr>")
 		for row in self.body:
 			tabletext.append("<tr>")
 			for cell in row:
@@ -88,10 +96,16 @@ def heading(level,text,idno=""):
 	#return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
 	return(f'<h{level}>{text}</h{level}{id}>')
 
+def comment(text):
+	return(f"<!-- {text} -->")
+def commentblock(text):
+	return(f"<!--\n{text}\n-->")
 
 #### MAIN ####
+
 def main():
 	print("running as program rather than module")
+	
 	print("end")
 	
 if __name__ == "__main__":
