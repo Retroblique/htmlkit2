@@ -115,11 +115,22 @@ def comment(text):
 	return(f"<!-- {text} -->")
 def commentblock(text):
 	return(f"<!--\n{text}\n-->")
+def hr():
+	return("<hr>")
+
 
 #### MAIN ####
 
 def main():
 	print("running as program rather than module")
+	examples  = ["Alpha","Beta","Gamma","Delta"]
+	examples2 = ["North","East","South","West"]
+	examples3 = ["Earth","Air","Fire","Water"]
+	
+	examples4 = ["Barbara","Celarent","Darii","Ferio"]
+	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
+	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
+	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
 	print("end")
 	
 if __name__ == "__main__":
