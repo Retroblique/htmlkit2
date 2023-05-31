@@ -1,8 +1,10 @@
 #web page html and css utils
 
 class htmlpage:
+	"""class to create html web pages"""
 	doctype = "<!DOCTYPE html>"
 	def __init__(self,title="title"):
+		"""creates now html page. optional title parameter can be specified"""
 		self.title = title
 		self.head = []
 		self.style = []
@@ -13,6 +15,7 @@ class htmlpage:
 	
 		
 	def page(self):
+		"""returns full html page"""
 		pagetext = []
 		pagetext.append(self.doctype)
 		pagetext.append("<html>\n<head>")
@@ -25,17 +28,21 @@ class htmlpage:
 	def set_body(self,textblock):
 		self.body = textblock
 	def append_body(self,text):
+		"""adds text to end of html body"""
 		self.body.append(text)
 	
 
 class itemlist:
+	"""class for html ordered or unordered list"""
 	def __init__(self,startno=""):
+		"""creates new list in html. default is unordered. specify starting parameter for ordered list"""
 		self.body = []
 		if startno == "":
 			self.tag = "ul"
 		else:
 			self.tag = "ol"	
 	def get_list(self):
+		"""return entire html list"""
 		listtext = []
 		listtext.append(f"<{self.tag}>")
 		listtext.extend(self.body)
@@ -46,6 +53,7 @@ class itemlist:
 	def add_item(self,text):
 		self.body.append("<li>" + text + "</li>")
 	def add_list(self,list):
+		"""add entire list to html list"""
 		for item in list:
 			self.body.append("<li>" + item + "</li>")
 
@@ -105,7 +113,6 @@ def commentblock(text):
 
 def main():
 	print("running as program rather than module")
-	
 	print("end")
 	
 if __name__ == "__main__":
