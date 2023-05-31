@@ -68,10 +68,10 @@ class table:
 		tabletext.append("<table>")
 		#tabletext.extend(self.body)
 		for row in self.body:
-			print("<tr>")
+			tabletext.append("<tr>")
 			for cell in row:
-				print("<td>" + cell + "</td>")
-			print("</tr>")	
+				tabletext.append("<td>" + cell + "</td>")
+			tabletext.append("</tr>")	
 		tabletext.append("</table>")
 		return("\n".join(tabletext))
 	
@@ -81,7 +81,7 @@ def tag(tagname,text):
 def heading(level,text,idno=""):
 	if idno != "":
 		#id = ' id="id=' + idno + '"'
-		id = f'id="id{idno}"'
+		id = f' id="id{idno}"'
 	else:
 		id = ""
 	#return("<h{0}>{1}</h{0}>".format(level,text))
@@ -90,7 +90,6 @@ def heading(level,text,idno=""):
 
 
 #### MAIN ####
-
 def main():
 	print("running as program rather than module")
 	print("end")
