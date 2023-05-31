@@ -53,11 +53,25 @@ class table:
 	def __init__(self):
 		self.heads = []
 		self.body = []
-		
+		self.currentrow = []
+	def add_row(self,text):
+		self.body.append(text)
+	def new_row(self):
+		self.currentrow = []
+	def add_cell(self,text):
+		self.currentrow.append(text)
+	def end_row(self):
+		self.body.append(self.currentrow)
+	
 	def get_table(self):
 		tabletext = []
-		tabletext.append("<table")
-		tabletext.extend(self.body)
+		tabletext.append("<table>")
+		#tabletext.extend(self.body)
+		for row in self.body:
+			print("<tr>")
+			for cell in row:
+				print("<td>" + cell + "</td>")
+			print("</tr>")	
 		tabletext.append("</table>")
 		return("\n".join(tabletext))
 	
@@ -74,7 +88,6 @@ def heading(level,text,idno=0):
 
 def main():
 	print("running as program rather than module")
-	print("end")
-
+	
 if __name__ == "__main__":
 	main()
