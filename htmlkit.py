@@ -7,11 +7,32 @@ class htmlpage:
 		"""creates now html page. optional title parameter can be specified"""
 		self.title = title
 		self.head = []
-		self.style = []
+		self.style_external = []
+		self.style_inline = []
 		self.body = []
 		
 	def set_title(self,title):
+		"""set title tag in document head"""
 		self.title = title
+
+	def set_style(self,mode = "inline" ,css=""):
+		if css != "":
+			if mode == "external":
+				#self.style.append('<link rel="stylesheet" href="{}">'.format(css))
+				self.style_external.append('<link rel="stylesheet" href="{}">'.format(css))
+			else:
+				cssfile = open(css,"r")
+				csstext = cssfile.read()
+				cssfile.close()
+				#self.style_inline.append("<style>")
+				self.style_inline.append(csstext)
+				#self.style._inline.append("</style>")
+		else:
+			pass
+	
+	def add_style(self,text):
+		self.style_inline.append(text)
+
 	
 		
 	def page(self):
@@ -20,7 +41,18 @@ class htmlpage:
 		pagetext.append(self.doctype)
 		pagetext.append("<html>\n<head>")
 		pagetext.append("<title>" + self.title + "</title>")
-		pagetext.extend(self.style)		
+		pagetext.append(comment("style here"))
+		#pagetext.append(comment(self.body[0]))
+		if len(self.style_external) > 0:
+		
+		#if	self.style[0].startswith("<link"):
+			pagetext.extend(self.style_external)
+		#else:
+		if len(self.style_inline) > 0:
+			pagetext.append("<style>")
+			pagetext.extend(self.style_inline)
+			pagetext.append("</style>")
+		
 		pagetext.append("</head>\n<body>")
 		pagetext.extend(self.body)
 		pagetext.append("</body></html>")
@@ -154,6 +186,7 @@ def main():
 	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
 	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
 	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]	
+
 	print("end")
 	
 if __name__ == "__main__":
