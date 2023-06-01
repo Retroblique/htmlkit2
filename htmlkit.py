@@ -153,8 +153,26 @@ class table:
 		tabletext.append("</table>")
 		return("\n".join(tabletext))
 	
+class tagclass:
+	"""class to define tags with attributes
+	"""
+	def __init__(self,tagname,classname=""):
+		self.tagname = tagname
+		self.classname = classname
+		self.opentag = f'<{self.tagname}'
+		if classname != "":
+			self.opentag += f' class="{self.classname}"'
+		self.closetag = f"</{self.tagname}>"
+	
+	def	tag(self,text):
+		"""returns text enclosed in define tag"""
+		return(f'{self.opentag}>{text}{self.closetag}')
 	
 def tag(tagname,text):
+	"""function to return simple html tags
+	returns <tagname>text</tagname>
+	use tagclass class with tag method for more advanced tag features
+	"""
 	return("<{0}>{1}</{0}>".format(tagname,text))
 def heading(level,text,idno=""):
 	if idno != "":
@@ -185,8 +203,9 @@ def main():
 	examples4 = ["Barbara","Celarent","Darii","Ferio"]
 	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
 	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
-	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]	
-
+	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
+	
+	
 	print("end")
 	
 if __name__ == "__main__":
