@@ -73,6 +73,12 @@ class table:
 		self.border = True
 	def set_class(self,classname):
 		self.classname = classname
+	def set_id(self,id):
+		self.id = id
+	def borderon(self):
+		self.border = True
+	def borderoff(self):
+		self.border = False
 	def add_row(self,text):
 		"""add row of items to table. text will be treated as a list"""
 		self.body.append(text)
