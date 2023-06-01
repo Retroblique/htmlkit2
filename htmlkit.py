@@ -29,17 +29,14 @@ class htmlpage:
 		self.body = textblock
 	def append_body(self,text):
 		"""adds text to end of html body"""
-		self.body.append(text)
-		
+		self.body.append(text)	
 	def save(self,filename):
-		"""writes page html"""
+		"""writes page html to file"""
 		fileout = open(filename,"w")
 		fileout.write(self.page())
 		fileout.close()
+		
 	
-	
-	
-
 class itemlist:
 	"""class for html ordered or unordered list"""
 	def __init__(self,startno=""):
@@ -71,6 +68,11 @@ class table:
 		self.heads = []
 		self.body = []
 		self.currentrow = []
+		self.classname = ""
+		self.id = ""
+		self.border = True
+	def set_class(self,classname):
+		self.classname = classname
 	def add_row(self,text):
 		"""add row of items to table. text will be treated as a list"""
 		self.body.append(text)
@@ -86,12 +88,19 @@ class table:
 	def add_head(self,text):
 		"""adds table column heading (table head) to table"""
 		self.heads.append(text)
-	
-	
 	def get_table(self):
 		"""returns complete html table code"""
 		tabletext = []
-		tabletext.append("<table>")
+		opentag = "<table"
+		if self.classname != "":
+			opentag += f' class="{self.classname}"'
+		if self.id != "":
+			opentag += f' id="{self.id}"'
+		if self.border:
+			opentag +=  ' border="1" cellspacing="0"'
+		
+		tabletext.append(opentag + '>')
+		
 		#tabletext.extend(self.body)
 		if len(self.heads) > 0:
 			tabletext.append("<tr>")
@@ -138,7 +147,7 @@ def main():
 	examples4 = ["Barbara","Celarent","Darii","Ferio"]
 	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
 	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
-	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
+	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]	
 	print("end")
 	
 if __name__ == "__main__":
