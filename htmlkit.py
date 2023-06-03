@@ -181,6 +181,9 @@ def tag(tagname,text):
 	"""
 	return("<{0}>{1}</{0}>".format(tagname,text))
 def heading(level,text,idno=""):
+	"""returns heading text at specified heading level (1-6)
+	optional id can be specified
+	"""
 	if idno != "":
 		#id = ' id="id=' + idno + '"'
 		id = f' id="id{idno}"'
@@ -191,18 +194,40 @@ def heading(level,text,idno=""):
 	return(f'<h{level}>{text}</h{level}{id}>')
 
 def comment(text):
+	"""returns text in comment"""
 	return(f"<!-- {text} -->")
 def commentblock(text):
+	"""returns text as multi-line comment"""
 	return(f"<!--\n{text}\n-->")
 def hr():
+	"""return horizontal rule tag"""
 	return("<hr>")
+def image(src,alt=""):
+	"""return img tag from source url, optional alt paramete"""
+	if alt == "":
+		return(f'<img src="{src}">')
+	else:
+		return(f'<img src="{src}" alt="{alt}">')
+		
 
+def ink(textcolour):
+	return(f"color:{textcolour};")
+	
+def paper(backgroundcolour):
+	return(f"bg-colour:{backgroundcolour};") 
 
-#### MAIN ####
-
+### MAIN ####
 def main():
 	pass
 	print("running as program rather than module")
+	examples  = ["Alpha","Beta","Gamma","Delta"]
+	examples2 = ["North","East","South","West"]
+	examples3 = ["Earth","Air","Fire","Water"]
+	
+	examples4 = ["Barbara","Celarent","Darii","Ferio"]
+	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
+	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
+	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
 	print("end")
 	
 if __name__ == "__main__":
