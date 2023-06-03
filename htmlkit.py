@@ -1,4 +1,4 @@
-#web page html and css utils
+"""web page html and css utils"""
 
 class htmlpage:
 	"""class to create html web pages"""
@@ -8,14 +8,20 @@ class htmlpage:
 		self.title = title
 		self.head = []
 		self.style_external = []
-		self.style_inline = []
+		self.style_internal = []
 		self.body = []
 		
 	def set_title(self,title):
 		"""set title tag in document head"""
 		self.title = title
 
-	def set_style(self,mode = "inline" ,css=""):
+	def set_style(self,mode = "internal" ,css=""):
+		"""specifies css file and mode
+		"external" mode links to css file
+		"internal" (default) mode copies css file contents into <style></style> tag in document head"""
+		
+		
+			
 		if css != "":
 			if mode == "external":
 				#self.style.append('<link rel="stylesheet" href="{}">'.format(css))
@@ -24,14 +30,14 @@ class htmlpage:
 				cssfile = open(css,"r")
 				csstext = cssfile.read()
 				cssfile.close()
-				#self.style_inline.append("<style>")
-				self.style_inline.append(csstext)
-				#self.style._inline.append("</style>")
+				#self.style_internal.append("<style>")
+				self.style_internal.append(csstext)
+				#self.style._internal.append("</style>")
 		else:
 			pass
 	
 	def add_style(self,text):
-		self.style_inline.append(text)
+		self.style_internal.append(text)
 
 	
 		
@@ -48,9 +54,9 @@ class htmlpage:
 		#if	self.style[0].startswith("<link"):
 			pagetext.extend(self.style_external)
 		#else:
-		if len(self.style_inline) > 0:
+		if len(self.style_internal) > 0:
 			pagetext.append("<style>")
-			pagetext.extend(self.style_inline)
+			pagetext.extend(self.style_internal)
 			pagetext.append("</style>")
 		
 		pagetext.append("</head>\n<body>")
@@ -195,17 +201,8 @@ def hr():
 #### MAIN ####
 
 def main():
+	pass
 	print("running as program rather than module")
-	examples  = ["Alpha","Beta","Gamma","Delta"]
-	examples2 = ["North","East","South","West"]
-	examples3 = ["Earth","Air","Fire","Water"]
-	
-	examples4 = ["Barbara","Celarent","Darii","Ferio"]
-	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
-	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
-	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
-	
-	
 	print("end")
 	
 if __name__ == "__main__":
