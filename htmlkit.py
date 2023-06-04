@@ -109,8 +109,11 @@ class table:
 		self.classname = ""
 		self.id = ""
 		self.border = True
+		self.caption = ""
 	def set_class(self,classname):
 		self.classname = classname
+	def set_caption(self,caption):
+		self.caption = caption
 	def set_id(self,id):
 		self.id = id
 	def borderon(self):
@@ -135,6 +138,7 @@ class table:
 	def get_table(self):
 		"""returns complete html table code"""
 		tabletext = []
+		#opening tag
 		opentag = "<table"
 		if self.classname != "":
 			opentag += f' class="{self.classname}"'
@@ -142,8 +146,10 @@ class table:
 			opentag += f' id="{self.id}"'
 		if self.border:
 			opentag +=  ' border="1" cellspacing="0"'
-		
 		tabletext.append(opentag + '>')
+		
+		if self.caption != "":
+			tabletext.append(f"<caption>{self.caption}</caption>")
 		
 		#tabletext.extend(self.body)
 		if len(self.heads) > 0:
@@ -214,7 +220,7 @@ def ink(textcolour):
 	return(f"color:{textcolour};")
 	
 def paper(backgroundcolour):
-	return(f"bg-colour:{backgroundcolour};") 
+	return(f"background-color:{backgroundcolour};") 
 
 ### MAIN ####
 def main():
