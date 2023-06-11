@@ -220,7 +220,20 @@ def ink(textcolour):
 	return(f"color:{textcolour};")
 	
 def paper(backgroundcolour):
-	return(f"background-color:{backgroundcolour};") 
+	return(f"background-color:{backgroundcolour};")
+
+def italic():
+	return("font-style: italic;")
+
+def bold():
+	return("font-weight: bold;")
+	
+def smallcaps():
+	return("font-variant: small-caps;")
+
+def style(selector,*args):
+	"""returns selector{arg,arg,arg....}"""
+	return(f"{selector}{{" + "; ".join(args) + ";}")
 
 ### MAIN ####
 def main():
@@ -234,7 +247,7 @@ def main():
 	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
 	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
 	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
-	print("end")
 	
+	print("end")	
 if __name__ == "__main__":
 	main()
