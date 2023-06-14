@@ -15,7 +15,7 @@ class htmlpage:
 		"""set title tag in document head"""
 		self.title = title
 
-	def set_style(self,mode = "internal" ,css=""):
+	def set_style(self,css,mode = "internal"):
 		"""specifies css file and mode
 		"external" mode links to css file
 		"internal" (default) mode copies css file contents into <style></style> tag in document head"""
@@ -250,6 +250,7 @@ def smallcaps():
 def main():
 	pass
 	print("running as program rather than module")
+
 	print("end")
 	
 if __name__ == "__main__":
