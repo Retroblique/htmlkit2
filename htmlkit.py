@@ -165,7 +165,7 @@ class table:
 		tabletext.append("</table>")
 		return("\n".join(tabletext))
 	
-class tagclass:
+class element:
 	"""class to define tags with attributes
 	"""
 	def __init__(self,tagname,classname=""):
@@ -183,7 +183,7 @@ class tagclass:
 def tag(tagname,text):
 	"""function to return simple html tags
 	returns <tagname>text</tagname>
-	use tagclass class with tag method for more advanced tag features
+	use element class with tag method for more advanced tag features
 	"""
 	return("<{0}>{1}</{0}>".format(tagname,text))
 def heading(level,text,idno=""):
@@ -198,6 +198,9 @@ def heading(level,text,idno=""):
 	#return("<h{0}>{1}</h{0}>".format(level,text))
 	#return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
 	return(f'<h{level}>{text}</h{level}{id}>')
+
+def link(url,text):
+	return(f'<a href="{url}">{text}</a>')
 
 def comment(text):
 	"""returns text in comment"""
@@ -214,40 +217,40 @@ def image(src,alt=""):
 		return(f'<img src="{src}">')
 	else:
 		return(f'<img src="{src}" alt="{alt}">')
-		
 
-def ink(textcolour):
-	return(f"color:{textcolour};")
-	
-def paper(backgroundcolour):
-	return(f"background-color:{backgroundcolour};")
-
-def italic():
-	return("font-style: italic;")
-
-def bold():
-	return("font-weight: bold;")
-	
-def smallcaps():
-	return("font-variant: small-caps;")
-
+#css functions
 def style(selector,*args):
 	"""returns selector{arg,arg,arg....}"""
 	return(f"{selector}{{" + "; ".join(args) + ";}")
+
+		
+#quick / shortcut style functions
+def ink(textcolour):
+	"""return style declaration for text colour"""
+	return(f"color:{textcolour};")
+	
+def paper(backgroundcolour):
+	"""returns style declaration for background colour"""
+	return(f"background-color:{backgroundcolour};")
+
+def italic():
+	"""shortcut returning 'font-style: italic;'"""
+	return("font-style: italic;")
+
+def bold():
+	"""shortcut function returning 'font-weight: bold;'"""
+	return("font-weight: bold;")
+	
+def smallcaps():
+	"""shortcut function returning 'font-variant: small-caps;'"""
+	return("font-variant: small-caps;")
+
 
 ### MAIN ####
 def main():
 	pass
 	print("running as program rather than module")
-	examples  = ["Alpha","Beta","Gamma","Delta"]
-	examples2 = ["North","East","South","West"]
-	examples3 = ["Earth","Air","Fire","Water"]
+	print("end")
 	
-	examples4 = ["Barbara","Celarent","Darii","Ferio"]
-	examples5 = ["Cesare", "Camestres", "Festino", "Baroco"]
-	examples6 = ["Darapti", "Disamis", "Datisi", "Felapton"]
-	examples7 = ["Bramantip", "Camenes", "Dimaris", "Fesapo"]
-	
-	print("end")	
 if __name__ == "__main__":
 	main()
