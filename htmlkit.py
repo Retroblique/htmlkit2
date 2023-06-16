@@ -218,6 +218,30 @@ def image(src,alt=""):
 	else:
 		return(f'<img src="{src}" alt="{alt}">')
 
+class autoid:
+	"""class to generate automatically incremented values for id and class names
+	default prefix value = id
+	default startvalue = 1
+	"""
+	def __init__(self,prefix="id",startvalue=1):
+		self.prefix = prefix
+		self.startvalue = startvalue
+		self.counter = startvalue
+	def id(self):
+		"""return id value"""
+		return(f"{self.prefix}{self.counter}")
+		
+	def auto(self):
+		"""return id value then increments counter"""
+		new_id = f"{self.prefix}{self.counter}"
+		self.counter += 1
+		return(new_id)		
+	def reset(self):
+		"""resets counter to original start value"""
+		self.counter = self.startvalue
+		
+
+
 #css functions
 def style(selector,*args):
 	"""returns selector{arg,arg,arg....}"""
