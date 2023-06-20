@@ -1,5 +1,7 @@
 """web page html and css utils"""
 
+import re
+
 class htmlpage:
 	"""class to create html web pages"""
 	doctype = "<!DOCTYPE html>"
@@ -239,7 +241,21 @@ class autoid:
 	def reset(self):
 		"""resets counter to original start value"""
 		self.counter = self.startvalue
-		
+
+def safetext(text):
+	"""replaces & > < characters intext with entity codes"""
+	entity = {"&" : "&amp;", "<" : "&lt;", ">" : "&gt;"}
+	entset = "[" + "".join(entity.keys()) + "]"
+	#print("reserved characters: {" + entset + "}")
+	rx = re.compile("(" + entset + ")")
+	#aline = "&amp; &lt; &gt"
+	result = rx.search(text) #check and replace entitiy chars
+	if result: 
+		textout = rx.sub(lambda x: entity[x.group(1)],text)
+	else:
+		textout = text
+	return(textout)
+
 
 
 #css functions
@@ -273,8 +289,7 @@ def smallcaps():
 ### MAIN ####
 def main():
 	pass
-	print("running as program rather than module")
-
+	print("running as program rather than module")	
 	print("end")
 	
 if __name__ == "__main__":
