@@ -116,7 +116,7 @@ insert a new item into the itemlist
 creates html tables
 
 table = htmlkit.table()
-generated basic table
+generates basic table
 
 ### get_table() method
 returns the html text of the table object
@@ -138,7 +138,7 @@ returns text in multi-line comment
 htmlkit.tag(tagname,text)
 returns text as an element surrounded by tagname tag
 example
-tag("p","paragraph text")
+htmlkit.tag("p","paragraph text")
 returns
 <p>paragraph text</p>
 
@@ -148,9 +148,9 @@ htmlkit.link(src,text)
 creates a hyperlink
 
 example
-htmlkit.link<"https://apod.nasa.gov/apod/astropix.html","APOD")
+```htmlkit.link<"https://apod.nasa.gov/apod/astropix.html","APOD")```
 returns
-<a href="https://apod.nasa.gov/apod/astropix.html">APOD</a>
+```<a href="https://apod.nasa.gov/apod/astropix.html">APOD</a>```
 
 ### image function
 htmlkit.image(src,alt)
