@@ -6,14 +6,14 @@
 ## htmlpage class
 
 ### initialisation
-webpage = htmllkit.htmlpage(title)
+`webpage = htmllkit.htmlpage(title)`
 
 The title argument is optional and if omitted a default value of "title" will be used
 
 Creates a the basic outline of a webpage in html5
 
 At initialisation this will be:
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +25,20 @@ At initialisation this will be:
 ```
 
 ### page method
-webpage.page()
+`webpage.page()`
 return the text of the htmlpage object webpage
 
 ### save method
-webpage.save(filename)
+`webpage.save(filename)`
 
 Saves the text of the htmlpage to textfile filename
 
 ### set_title method
-webpage.set_title(titlename)
+`webpage.set_title(titlename)`
 Sets the the title element to titlename. Replaces any previous title value
 
-
 ### set_style method
-webpage.set_style(css,mode)
+`webpage.set_style(css,mode)`
 adds a css file to the htmlpage
 css is the name of the style file
 mode can be either "external" or "internal". The default mode is "internal" if the parameter is omitted.
@@ -47,13 +46,13 @@ mode can be either "external" or "internal". The default mode is "internal" if t
 external mode adds a link tag into the head of the htmlpage
 
 example
-webpage.set_style("htmlkit.css","external")
+`webpage.set_style("htmlkit.css","external")`
 will insert the line 
-<link rel="stylesheet" href="htmlkit.css">
+`<link rel="stylesheet" href="htmlkit.css">`
 
 internal mode will copy the contents of the style file into the style element in the head of the htmlpage
 example
-webpage.set_style("htmlkit.css","internal")
+`webpage.set_style("htmlkit.css","internal")`
 
 will insert
 ```
@@ -77,7 +76,7 @@ append text to the body element of the html page at the end of any existing cont
 webpage.set_body(textblock)
 
 
-class element
+## element class
 
 Defines html element tags, with option of specifying a class attribute. Particularly intended for span and div element. 
 
@@ -87,22 +86,20 @@ defines elements
 elementname.tag(text)
 
 example
+```python
 boldtext = htmlkit.element("strong")
 boldtext.tag("Alpha")
+```
 will return
-<strong>Alpha</strong>
-
+`<strong>Alpha</strong>`
+```python
 italictext = htmlkit.element("span","italic")
 italictext.tag("Beta")
+```
 will return
-<span class="italic">Beta</span>
+`<span class="italic">Beta</span>`
 
 This similar but more flexible than the tag function
-
-
-
-
-
 
 ## itemlist class
 
