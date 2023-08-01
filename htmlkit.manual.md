@@ -51,6 +51,7 @@ mode can be either "external" or "internal". The default mode is "internal" if t
 external mode adds a link tag into the head of the htmlpage
 
 example
+
 `webpage.set_style("htmlkit.css","external")`
 
 will insert the line 
@@ -58,7 +59,9 @@ will insert the line
 `<link rel="stylesheet" href="htmlkit.css">`
 
 internal mode will copy the contents of the style file into the style element in the head of the htmlpage
+
 example
+
 `webpage.set_style("htmlkit.css","internal")`
 
 will insert
@@ -71,24 +74,27 @@ Note - in either mode this method does not check that the contents of the css fi
 
 ### add_style method
 webpage.add_style(text)
+
 inserts text into the style element in the head the htmlpage
 
 Note - this method does not check that the text is valid css code
 
 
 ### append_body method
-webpage.append_body(text)
+`webpage.append_body(text)`
+
 append text to the body element of the html page at the end of any existing context
 
 ### set_body method
-webpage.set_body(textblock)
+`webpage.set_body(textblock)`
 
 
 ## element class
 
 Defines html element tags, with option of specifying a class attribute. Particularly intended for span and div element. 
 
-tagname = htmlkit.element(tagname,classname)
+`tagname = htmlkit.element(tagname,classname)`
+
 defines elements 
 
 elementname.tag(text)
