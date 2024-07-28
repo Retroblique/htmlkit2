@@ -76,7 +76,7 @@ append text to the body element of the html page at the end of any existing cont
 webpage.set_body(textblock)
 
 
-class element
+## class element
 
 Defines html element tags, with option of specifying a class attribute. Particularly intended for span and div element. 
 
@@ -97,11 +97,6 @@ will return
 <span class="italic">Beta</span>
 
 This similar but more flexible than the tag function
-
-
-
-
-
 
 ## itemlist class
 
@@ -161,10 +156,13 @@ simple comment
 htmlkit.tag(tagname,text)
 returns text as an element surrounded by tagname tag
 example
+```
 tag("p","paragraph text")
+```
 returns
+```
 <p>paragraph text</p>
-
+```
 
 ### link function
 htmlkit.link(src,text)
@@ -183,9 +181,13 @@ htmlkit.safetext(text)
 Replaces & > < characters in text with entity codes
 
 example
+```
 htmlkit.safetext("a-b-c-d-e-f-g-<-&->")
+```
 returns 
-
+```
+a-b-c-d-e-f-g-&lt;-&amp;-&gt;
+```
 ## css functions
 
 ### style function
