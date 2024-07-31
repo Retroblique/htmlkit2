@@ -5,11 +5,11 @@ Python module for quick generation of basic html and css code.
 ## htmlpage class
 
 ### initialisation
-`webpage = htmllkit.htmlpage(title)`
+`htmlpagename = htmllkit.htmlpage(title)`
 
 The title argument is optional and if omitted a default value of "title" will be used
 
-Creates a the basic outline of a webpage in html5
+Creates a the basic outline of a web page in html5
 
 At initialisation this will be:
 ```
@@ -24,18 +24,18 @@ At initialisation this will be:
 ```
 
 ### page method
-'webpage.page()'
-return the text of the htmlpage object webpage
+'htmlpage.page()'
+returns the text of the htmlpage object webpage
 
 ### save method
 `webpage.save(filename)`
-
-Saves the text of the htmlpage to textfile filename
+Saves the text of the htmlpage to textfile filename.
+This is the equivalent of
+`f.write(htmlpagename.page()) #where f is a file object`
 
 ### set_title method
 `webpage.set_title(titlename)`
 Sets the the title element to titlename. Replaces any previous title value
-
 
 ### set_style method
 `webpage.set_style(css,mode)`
@@ -63,17 +63,18 @@ will insert
 Note - in either mode this method does not check that the contents of the css file is valid css code.
 
 ### add_style method
-webpage.add_style(text)
+`htmlpagename.add_style(text)`
 inserts text into the style element in the head the htmlpage
 
 Note - this method does not check that the text is valid css code
 
-
 ### append_body method
-`webpage.append_body(text)`
-append text to the body element of the html page at the end of any existing context
+`htmlpagename.append_body(text)`
+appends text to the body element of the html page at the end of any existing context
 
-webpage.set_body(textblock)
+### set_body method
+`htmlpagename.set_body(textblock)`
+Sets textblock as the contents of the <body> element in htmlpage. Will replace any exisiting context
 
 
 ## class element
