@@ -1,0 +1,19 @@
+# Build outputs
+build/
+dist/
+*.egg-info/
+
+# Generated HTML files
+*.html
+output/
+public/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# JetBrains IDEs (PyCharm, etc.)
+.idea/
