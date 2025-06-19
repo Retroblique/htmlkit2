@@ -302,6 +302,12 @@ def main():
     # Provides a placeholder for main program logic (runs if module executed directly).
     pass
 
+# Backwards compatibility aliases for original class names
+htmlpage = HtmlPage
+itemlist = ItemList
+table = Table
+element = Element
+autoid = AutoID
 
 if __name__ == "__main__":
     main()
