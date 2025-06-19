@@ -1,296 +1,307 @@
-"""web page html and css utils"""
+# HTML and CSS utilities for generating web pages programmatically.
 
 import re
 
-class htmlpage:
-	"""class to create html web pages"""
-	doctype = "<!DOCTYPE html>"
-	def __init__(self,title="title"):
-		"""creates now html page. optional title parameter can be specified"""
-		self.title = title
-		self.head = []
-		self.style_external = []
-		self.style_internal = []
-		self.body = []
-		
-	def set_title(self,title):
-		"""set title tag in document head"""
-		self.title = title
+class HtmlPage:
+    # Represents and constructs an HTML web page.
+    doctype = "<!DOCTYPE html>"
 
-	def set_style(self,css,mode = "internal"):
-		"""specifies css file and mode
-		"external" mode links to css file
-		"internal" (default) mode copies css file contents into <style></style> tag in document head"""
-		
-		
-			
-		if css != "":
-			if mode == "external":
-				#self.style.append('<link rel="stylesheet" href="{}">'.format(css))
-				self.style_external.append('<link rel="stylesheet" href="{}">'.format(css))
-			else:
-				cssfile = open(css,"r")
-				csstext = cssfile.read()
-				cssfile.close()
-				#self.style_internal.append("<style>")
-				self.style_internal.append(csstext)
-				#self.style._internal.append("</style>")
-		else:
-			pass
-	
-	def add_style(self,text):
-		self.style_internal.append(text)
+    def __init__(self, title="title"):
+        # Initializes a new HTML page with an optional title.
+        self.title = title
+        self.head = []
+        self.style_external = []
+        self.style_internal = []
+        self.body = []
 
-	
-		
-	def page(self):
-		"""returns full html page"""
-		pagetext = []
-		pagetext.append(self.doctype)
-		pagetext.append("<html>\n<head>")
-		pagetext.append("<title>" + self.title + "</title>")
-		pagetext.append(comment("style here"))
-		#pagetext.append(comment(self.body[0]))
-		if len(self.style_external) > 0:
-		
-		#if	self.style[0].startswith("<link"):
-			pagetext.extend(self.style_external)
-		#else:
-		if len(self.style_internal) > 0:
-			pagetext.append("<style>")
-			pagetext.extend(self.style_internal)
-			pagetext.append("</style>")
-		
-		pagetext.append("</head>\n<body>")
-		pagetext.extend(self.body)
-		pagetext.append("</body></html>")
-		return "\n".join(pagetext)
-	def set_body(self,textblock):
-		self.body = textblock
-	def append_body(self,text):
-		"""adds text to end of html body"""
-		self.body.append(text)	
-	def save(self,filename):
-		"""writes page html to file"""
-		fileout = open(filename,"w")
-		fileout.write(self.page())
-		fileout.close()
-		
-	
-class itemlist:
-	"""class for html ordered or unordered list"""
-	def __init__(self,startno=""):
-		"""creates new list in html. default is unordered. specify starting parameter for ordered list"""
-		self.body = []
-		if startno == "":
-			self.tag = "ul"
-		else:
-			self.tag = "ol"	
-	def get_list(self):
-		"""return entire html list"""
-		listtext = []
-		listtext.append(f"<{self.tag}>")
-		listtext.extend(self.body)
-		listtext.append(f"</{self.tag}>")
-		return ("\n".join(listtext))
-	def get_body(self):
-		return(self.body)
-	def add_item(self,text):
-		self.body.append("<li>" + text + "</li>")
-	def add_list(self,list):
-		"""add entire list to html list"""
-		for item in list:
-			self.body.append("<li>" + item + "</li>")
+    def set_title(self, title):
+        # Sets the HTML document's <title>.
+        self.title = title
 
-class table:
-	"""class to create simple html tables"""
-	def __init__(self):
-		self.heads = []
-		self.body = []
-		self.currentrow = []
-		self.classname = ""
-		self.id = ""
-		self.border = True
-		self.caption = ""
-	def set_class(self,classname):
-		self.classname = classname
-	def set_caption(self,caption):
-		self.caption = caption
-	def set_id(self,id):
-		self.id = id
-	def borderon(self):
-		self.border = True
-	def borderoff(self):
-		self.border = False
-	def add_row(self,text):
-		"""add row of items to table. text will be treated as a list"""
-		self.body.append(text)
-	def new_row(self):
-		"""starts new table row. add items with add_cell. complete with end_row"""
-		self.currentrow = []
-	def add_cell(self,text):
-		"""adds cell (table data) to row. new_row should be called first"""
-		self.currentrow.append(text)
-	def end_row(self):
-		"""adds row to table. row should be started with new_row and populated with add_cell. row will be lost if this method is not called"""
-		self.body.append(self.currentrow)
-	def add_head(self,text):
-		"""adds table column heading (table head) to table"""
-		self.heads.append(text)
-	def get_table(self):
-		"""returns complete html table code"""
-		tabletext = []
-		#opening tag
-		opentag = "<table"
-		if self.classname != "":
-			opentag += f' class="{self.classname}"'
-		if self.id != "":
-			opentag += f' id="{self.id}"'
-		if self.border:
-			opentag +=  ' border="1" cellspacing="0"'
-		tabletext.append(opentag + '>')
-		
-		if self.caption != "":
-			tabletext.append(f"<caption>{self.caption}</caption>")
-		
-		#tabletext.extend(self.body)
-		if len(self.heads) > 0:
-			tabletext.append("<tr>")
-			for cell in self.heads:
-				tabletext.append("<th>" + cell + "</th>")
-			tabletext.append("</tr>")
-		for row in self.body:
-			tabletext.append("<tr>")
-			for cell in row:
-				tabletext.append("<td>" + cell + "</td>")
-			tabletext.append("</tr>")	
-		tabletext.append("</table>")
-		return("\n".join(tabletext))
-	
-class element:
-	"""class to define tags with attributes
-	"""
-	def __init__(self,tagname,classname=""):
-		self.tagname = tagname
-		self.classname = classname
-		self.opentag = f'<{self.tagname}'
-		if classname != "":
-			self.opentag += f' class="{self.classname}"'
-		self.closetag = f"</{self.tagname}>"
-	
-	def	tag(self,text):
-		"""returns text enclosed in define tag"""
-		return(f'{self.opentag}>{text}{self.closetag}')
-	
-def tag(tagname,text):
-	"""function to return simple html tags
-	returns <tagname>text</tagname>
-	use element class with tag method for more advanced tag features
-	"""
-	return("<{0}>{1}</{0}>".format(tagname,text))
-def heading(level,text,idno=""):
-	"""returns heading text at specified heading level (1-6)
-	optional id can be specified
-	"""
-	if idno != "":
-		#id = ' id="id=' + idno + '"'
-		id = f' id="id{idno}"'
-	else:
-		id = ""
-	#return("<h{0}>{1}</h{0}>".format(level,text))
-	#return("<h{0} id=\"{2}\">{1}</h{0}>".format(level,text,id))
-	return(f'<h{level}>{text}</h{level}{id}>')
+    def set_style(self, css, mode="internal"):
+        # Attaches CSS to the page.
+        # 'external': Link a CSS file in the head.
+        # 'internal': Embed CSS directly in a <style> tag.
+        if css != "":
+            if mode == "external":
+                self.style_external.append(f'<link rel="stylesheet" href="{css}">')
+            else:
+                with open(css, "r") as cssfile:
+                    csstext = cssfile.read()
+                self.style_internal.append(csstext)
 
-def link(url,text):
-	return(f'<a href="{url}">{text}</a>')
+    def add_style(self, text):
+        # Appends a given CSS text block to internal styles.
+        self.style_internal.append(text)
+
+    def page(self):
+        # Builds and returns the complete HTML page as a string.
+        pagetext = []
+        pagetext.append(self.doctype)
+        pagetext.append("<html>\n<head>")
+        pagetext.append(f"<title>{self.title}</title>")
+        pagetext.append(comment("style here"))
+
+        if self.style_external:
+            pagetext.extend(self.style_external)
+        if self.style_internal:
+            pagetext.append("<style>")
+            pagetext.extend(self.style_internal)
+            pagetext.append("</style>")
+
+        pagetext.append("</head>\n<body>")
+        pagetext.extend(self.body)
+        pagetext.append("</body></html>")
+        return "\n".join(pagetext)
+
+    def set_body(self, textblock):
+        # Sets the body content (takes a list of HTML strings).
+        self.body = textblock
+
+    def append_body(self, text):
+        # Adds an HTML string to the end of the page body.
+        self.body.append(text)
+
+    def save(self, filename):
+        # Saves the generated HTML page to a file.
+        with open(filename, "w") as fileout:
+            fileout.write(self.page())
+
+
+class ItemList:
+    # Creates HTML ordered (<ol>) or unordered (<ul>) lists.
+    def __init__(self, startno=""):
+        # Initializes a list. Unordered by default; ordered if 'startno' is provided.
+        self.body = []
+        self.tag = "ul" if startno == "" else "ol"
+
+    def get_list(self):
+        # Returns the full HTML code for the list.
+        listtext = [f"<{self.tag}>"]
+        listtext.extend(self.body)
+        listtext.append(f"</{self.tag}>")
+        return "\n".join(listtext)
+
+    def get_body(self):
+        # Returns the raw list of items.
+        return self.body
+
+    def add_item(self, text):
+        # Appends a single HTML list item.
+        self.body.append(f"<li>{text}</li>")
+
+    def add_list(self, items):
+        # Appends multiple items (as a list of strings) to the list.
+        for item in items:
+            self.add_item(item)
+
+
+class Table:
+    # Builds simple HTML tables with headers and rows.
+    def __init__(self):
+        # Initializes a new table.
+        self.heads = []
+        self.body = []
+        self.currentrow = []
+        self.classname = ""
+        self.id = ""
+        self.border = True
+        self.caption = ""
+
+    def set_class(self, classname):
+        # Sets a CSS class for the table.
+        self.classname = classname
+
+    def set_caption(self, caption):
+        # Sets a caption for the table.
+        self.caption = caption
+
+    def set_id(self, id):
+        # Sets the HTML id attribute for the table.
+        self.id = id
+
+    def borderon(self):
+        # Enables a table border.
+        self.border = True
+
+    def borderoff(self):
+        # Disables the table border.
+        self.border = False
+
+    def add_row(self, row):
+        # Adds a full row to the table; expects a list of strings.
+        self.body.append(row)
+
+    def new_row(self):
+        # Starts a new, empty table row.
+        self.currentrow = []
+
+    def add_cell(self, text):
+        # Appends a cell to the current row.
+        self.currentrow.append(text)
+
+    def end_row(self):
+        # Finalizes the current row and adds it to the table body.
+        self.body.append(self.currentrow)
+
+    def add_head(self, text):
+        # Appends a header cell to the table.
+        self.heads.append(text)
+
+    def get_table(self):
+        # Returns the complete HTML string for the table.
+        tabletext = []
+        opentag = "<table"
+        if self.classname:
+            opentag += f' class="{self.classname}"'
+        if self.id:
+            opentag += f' id="{self.id}"'
+        if self.border:
+            opentag += ' border="1" cellspacing="0"'
+        tabletext.append(opentag + '>')
+
+        if self.caption:
+            tabletext.append(f"<caption>{self.caption}</caption>")
+
+        if self.heads:
+            tabletext.append("<tr>")
+            for cell in self.heads:
+                tabletext.append(f"<th>{cell}</th>")
+            tabletext.append("</tr>")
+        for row in self.body:
+            tabletext.append("<tr>")
+            for cell in row:
+                tabletext.append(f"<td>{cell}</td>")
+            tabletext.append("</tr>")
+        tabletext.append("</table>")
+        return "\n".join(tabletext)
+
+
+class Element:
+    # Represents a generic HTML tag with attributes.
+    def __init__(self, tagname, classname=""):
+        # Initializes a tag, optionally with a CSS class.
+        self.tagname = tagname
+        self.classname = classname
+        self.opentag = f'<{self.tagname}'
+        if classname:
+            self.opentag += f' class="{classname}"'
+        self.closetag = f"</{self.tagname}>"
+
+    def tag(self, text):
+        # Wraps the given text within the tag and its attributes.
+        return f"{self.opentag}>{text}{self.closetag}"
+
+
+def tag(tagname, text):
+    # Returns a string wrapped in a specified HTML tag.
+    return f"<{tagname}>{text}</{tagname}>"
+
+
+def heading(level, text, idno=""):
+    # Returns an HTML heading (h1-h6) with optional id.
+    id_attr = f' id="id{idno}"' if idno else ""
+    return f"<h{level}{id_attr}>{text}</h{level}>"
+
+
+def link(url, text):
+    # Returns an HTML anchor tag for a link.
+    return f'<a href="{url}">{text}</a>'
+
 
 def comment(text):
-	"""returns text in comment"""
-	return(f"<!-- {text} -->")
-def commentblock(text):
-	"""returns text as multi-line comment"""
-	return(f"<!--\n{text}\n-->")
-def hr():
-	"""return horizontal rule tag"""
-	return("<hr>")
-def image(src,alt=""):
-	"""return img tag from source url, optional alt paramete"""
-	if alt == "":
-		return(f'<img src="{src}">')
-	else:
-		return(f'<img src="{src}" alt="{alt}">')
+    # Returns a single-line HTML comment.
+    return f"<!-- {text} -->"
 
-class autoid:
-	"""class to generate automatically incremented values for id and class names
-	default prefix value = id
-	default startvalue = 1
-	"""
-	def __init__(self,prefix="id",startvalue=1):
-		self.prefix = prefix
-		self.startvalue = startvalue
-		self.counter = startvalue
-	def id(self):
-		"""return id value"""
-		return(f"{self.prefix}{self.counter}")
-		
-	def auto(self):
-		"""return id value then increments counter"""
-		new_id = f"{self.prefix}{self.counter}"
-		self.counter += 1
-		return(new_id)		
-	def reset(self):
-		"""resets counter to original start value"""
-		self.counter = self.startvalue
+
+def commentblock(text):
+    # Returns a multi-line HTML comment.
+    return f"<!--\n{text}\n-->"
+
+
+def hr():
+    # Returns an HTML horizontal rule.
+    return "<hr>"
+
+
+def image(src, alt=""):
+    # Returns an HTML image tag with an optional alt text.
+    if alt == "":
+        return f'<img src="{src}">'
+    else:
+        return f'<img src="{src}" alt="{alt}">'
+
+
+class AutoID:
+    # Generates sequentially numbered IDs or classnames for HTML elements.
+    def __init__(self, prefix="id", startvalue=1):
+        # Initializes the counter with a prefix and starting number.
+        self.prefix = prefix
+        self.startvalue = startvalue
+        self.counter = startvalue
+
+    def id(self):
+        # Returns the current ID value (does not increment).
+        return f"{self.prefix}{self.counter}"
+
+    def auto(self):
+        # Returns the current ID value and increments the counter.
+        new_id = f"{self.prefix}{self.counter}"
+        self.counter += 1
+        return new_id
+
+    def reset(self):
+        # Resets the counter to the initial value.
+        self.counter = self.startvalue
+
 
 def safetext(text):
-	"""replaces & > < characters intext with entity codes"""
-	entity = {"&" : "&amp;", "<" : "&lt;", ">" : "&gt;"}
-	entset = "[" + "".join(entity.keys()) + "]"
-	#print("reserved characters: {" + entset + "}")
-	rx = re.compile("(" + entset + ")")
-	#aline = "&amp; &lt; &gt"
-	result = rx.search(text) #check and replace entitiy chars
-	if result: 
-		textout = rx.sub(lambda x: entity[x.group(1)],text)
-	else:
-		textout = text
-	return(textout)
+    # Escapes &, <, and > characters to their HTML entity codes.
+    entity = {"&": "&amp;", "<": "&lt;", ">": "&gt;"}
+    entset = "".join(entity.keys())
+    rx = re.compile(f"[{entset}]")
+    result = rx.search(text)
+    if result:
+        textout = rx.sub(lambda x: entity[x.group(0)], text)
+    else:
+        textout = text
+    return textout
 
 
+def style(selector, *args):
+    # Generates a CSS rule for a selector with the given properties.
+    return f"{selector}{{" + "; ".join(args) + ";}}"
 
-#css functions
-def style(selector,*args):
-	"""returns selector{arg,arg,arg....}"""
-	return(f"{selector}{{" + "; ".join(args) + ";}")
 
-		
-#quick / shortcut style functions
 def ink(textcolour):
-	"""return style declaration for text colour"""
-	return(f"color:{textcolour};")
-	
+    # Returns a CSS color property for text color.
+    return f"color:{textcolour};"
+
+
 def paper(backgroundcolour):
-	"""returns style declaration for background colour"""
-	return(f"background-color:{backgroundcolour};")
+    # Returns a CSS background-color property.
+    return f"background-color:{backgroundcolour};"
+
 
 def italic():
-	"""shortcut returning 'font-style: italic;'"""
-	return("font-style: italic;")
+    # Returns a CSS declaration for italic text.
+    return "font-style: italic;"
+
 
 def bold():
-	"""shortcut function returning 'font-weight: bold;'"""
-	return("font-weight: bold;")
-	
+    # Returns a CSS declaration for bold text.
+    return "font-weight: bold;"
+
+
 def smallcaps():
-	"""shortcut function returning 'font-variant: small-caps;'"""
-	return("font-variant: small-caps;")
+    # Returns a CSS declaration for small-caps font variant.
+    return "font-variant: small-caps;"
 
 
-### MAIN ####
 def main():
-	pass
-	print("running as program rather than module")	
-	print("end")
-	
+    # Provides a placeholder for main program logic (runs if module executed directly).
+    pass
+
+
 if __name__ == "__main__":
-	main()
+    main()
