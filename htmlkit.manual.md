@@ -1,5 +1,3 @@
----
-
 # htmlkit Python Module - User Guide
 
 `htmlkit2` is a Python toolkit for generating valid HTML and CSS programmatically. It offers classes and functions for building complete web pages, tables, lists, and style declarations directly from your Python scripts. This version is a fork of htmlkit by Andrew Lawrence and fully backwards-compatible with that version. 
