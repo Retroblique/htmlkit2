@@ -17,3 +17,6 @@ desktop.ini
 
 # JetBrains IDEs (PyCharm, etc.)
 .idea/
+
+# cache files
+__pycache__/
