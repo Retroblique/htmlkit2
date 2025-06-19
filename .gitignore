@@ -17,3 +17,9 @@ desktop.ini
 
 # JetBrains IDEs (PyCharm, etc.)
 .idea/
+
+# test scripts
+test.py 
+
+# caches
+__pycache__
