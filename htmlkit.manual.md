@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # htmlkit2 Python Module - User Guide
 
 `htmlkit2` is a Python toolkit for generating valid HTML and CSS programmatically. It offers classes and functions for building complete web pages, tables, lists, and style declarations directly from your Python scripts.
+=======
+# htmlkit Python Module - User Guide
+
+`htmlkit` is a Python toolkit for generating valid HTML and CSS programmatically. It offers classes and functions for building complete web pages, tables, lists, and style declarations directly from your Python scripts.
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 
 ---
 
@@ -8,7 +14,11 @@
 
 Import the module at the top of your script:
 ```python
+<<<<<<< HEAD
 import htmlkit2
+=======
+import htmlkit
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 ```
 
 ---
@@ -21,7 +31,11 @@ Create and manage the structure and contents of a full HTML page.
 
 #### Initialization
 ```python
+<<<<<<< HEAD
 page = htmlkit2.HtmlPage(title="My Page")
+=======
+page = htmlkit.HtmlPage(title="My Page")
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 # The title argument is optional. Default is "title"
 ```
 
@@ -81,10 +95,17 @@ Create HTML ordered (`<ol>`) or unordered (`<ul>`) lists.
 
 #### Initialization
 ```python
+<<<<<<< HEAD
 mylist = htmlkit2.ItemList()
 # For unordered lists (default).
 
 mylist = htmlkit2.ItemList(startno=1)
+=======
+mylist = htmlkit.ItemList()
+# For unordered lists (default).
+
+mylist = htmlkit.ItemList(startno=1)
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 # For ordered lists.
 ```
 
@@ -104,7 +125,11 @@ mylist = htmlkit2.ItemList(startno=1)
 
 #### Example
 ```python
+<<<<<<< HEAD
 shopping = htmlkit2.ItemList()
+=======
+shopping = htmlkit.ItemList()
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 shopping.add_item("Milk")
 shopping.add_item("Eggs")
 print(shopping.get_list())
@@ -118,7 +143,11 @@ Programmatically build HTML tables.
 
 #### Initialization
 ```python
+<<<<<<< HEAD
 t = htmlkit2.Table()
+=======
+t = htmlkit.Table()
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 ```
 
 #### Methods
@@ -149,7 +178,11 @@ t = htmlkit2.Table()
 
 #### Example
 ```python
+<<<<<<< HEAD
 t = htmlkit2.Table()
+=======
+t = htmlkit.Table()
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 t.add_head("Name")
 t.add_head("Score")
 t.add_row(["Alice", "90"])
@@ -165,7 +198,11 @@ Create arbitrary HTML tags, optionally with a class attribute.
 
 #### Usage
 ```python
+<<<<<<< HEAD
 el = htmlkit2.Element("span", "highlight")
+=======
+el = htmlkit.Element("span", "highlight")
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 print(el.tag("Important text"))
 # <span class="highlight">Important text</span>
 ```
@@ -178,7 +215,11 @@ Generate unique sequential IDs or class names for HTML elements.
 
 #### Usage
 ```python
+<<<<<<< HEAD
 auto = htmlkit2.AutoID(prefix="item", startvalue=1)
+=======
+auto = htmlkit.AutoID(prefix="item", startvalue=1)
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 print(auto.auto())  # item1
 print(auto.auto())  # item2
 auto.reset()        # back to item1
@@ -190,6 +231,7 @@ auto.reset()        # back to item1
 
 | Function | Example | Output |
 |----------|---------|--------|
+<<<<<<< HEAD
 | **tag(tagname, text)** | `htmlkit2.tag("p", "Hello")` | `<p>Hello</p>` |
 | **heading(level, text, idno="")** | `htmlkit2.heading(2, "Subtitle")` | `<h2>Subtitle</h2>` |
 | **link(url, text)** | `htmlkit2.link("https://python.org", "Python")` | `<a href="https://python.org">Python</a>` |
@@ -198,6 +240,16 @@ auto.reset()        # back to item1
 | **commentblock(text)** | `htmlkit2.commentblock("line 1\nline 2")` | <!-- <br>line 1<br>line 2<br>--> |
 | **hr()** | `htmlkit2.hr()` | `<hr>` |
 | **safetext(text)** | `htmlkit2.safetext("a < b & c > d")` | `a &lt; b &amp; c &gt; d` |
+=======
+| **tag(tagname, text)** | `htmlkit.tag("p", "Hello")` | `<p>Hello</p>` |
+| **heading(level, text, idno="")** | `htmlkit.heading(2, "Subtitle")` | `<h2>Subtitle</h2>` |
+| **link(url, text)** | `htmlkit.link("https://python.org", "Python")` | `<a href="https://python.org">Python</a>` |
+| **image(src, alt="")** | `htmlkit.image("cat.jpg", "A cat")` | `<img src="cat.jpg" alt="A cat">` |
+| **comment(text)** | `htmlkit.comment("note")` | `<!-- note -->` |
+| **commentblock(text)** | `htmlkit.commentblock("line 1\nline 2")` | <!-- <br>line 1<br>line 2<br>--> |
+| **hr()** | `htmlkit.hr()` | `<hr>` |
+| **safetext(text)** | `htmlkit.safetext("a < b & c > d")` | `a &lt; b &amp; c &gt; d` |
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 
 ---
 
@@ -205,30 +257,46 @@ auto.reset()        # back to item1
 
 | Function | Example | Output |
 |----------|---------|--------|
+<<<<<<< HEAD
 | **style(selector, *props)** | `htmlkit2.style("p", "font-size:16px", "color:blue")` | `p{font-size:16px; color:blue;}` |
 | **ink(color)** | `htmlkit2.ink("red")` | `color:red;` |
 | **paper(color)** | `htmlkit2.paper("white")` | `background-color:white;` |
 | **italic()** | `htmlkit2.italic()` | `font-style: italic;` |
 | **bold()** | `htmlkit2.bold()` | `font-weight: bold;` |
 | **smallcaps()** | `htmlkit2.smallcaps()` | `font-variant: small-caps;` |
+=======
+| **style(selector, *props)** | `htmlkit.style("p", "font-size:16px", "color:blue")` | `p{font-size:16px; color:blue;}` |
+| **ink(color)** | `htmlkit.ink("red")` | `color:red;` |
+| **paper(color)** | `htmlkit.paper("white")` | `background-color:white;` |
+| **italic()** | `htmlkit.italic()` | `font-style: italic;` |
+| **bold()** | `htmlkit.bold()` | `font-weight: bold;` |
+| **smallcaps()** | `htmlkit.smallcaps()` | `font-variant: small-caps;` |
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 
 ---
 
 ## Complete Example
 
 ```python
+<<<<<<< HEAD
 import htmlkit2
 
 # Create a web page
 page = htmlkit2.HtmlPage("Sample Page")
-page.add_style("body { font-family: sans-serif; }")
-page.append_body(htmlkit2.heading(1, "Welcome!"))
+=======
+import htmlkit
 
-fruits = htmlkit2.ItemList()
+# Create a web page
+page = htmlkit.HtmlPage("Sample Page")
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
+page.add_style("body { font-family: sans-serif; }")
+page.append_body(htmlkit.heading(1, "Welcome!"))
+
+fruits = htmlkit.ItemList()
 fruits.add_list(["Apple", "Banana", "Cherry"])
 page.append_body(fruits.get_list())
 
-table = htmlkit2.Table()
+table = htmlkit.Table()
 table.add_head("Name")
 table.add_head("Score")
 table.add_row(["Alice", "92"])
@@ -241,6 +309,16 @@ page.save("sample.html")
 ---
 
 ## Summary
+<<<<<<< HEAD
+=======
+
+- **HtmlPage:** Generate and output entire HTML documents.
+- **ItemList:** Easily build `<ul>` and `<ol>` lists.
+- **Table:** Programmatically build tables.
+- **Element:** Custom tag or span/div element creator.
+- **AutoID:** Automatic numbering for element IDs/classes.
+- **Helper functions:** Tags, links, headings, comments, images, safe text, and CSS.
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 
 - **HtmlPage:** Generate and output entire HTML documents.
 - **ItemList:** Easily build `<ul>` and `<ol>` lists.
@@ -249,8 +327,11 @@ page.save("sample.html")
 - **AutoID:** Automatic numbering for element IDs/classes.
 - **Helper functions:** Tags, links, headings, comments, images, safe text, and CSS.
 
+<<<<<<< HEAD
 htmlkit2 lets you automate and script the authoring of HTML/CSS for web pages, reports, and custom output—entirely from Python!
 
+=======
+>>>>>>> 20b7df9ada3078f6ee1d412a561f86c1994fba2e
 ---
 
 For more details, examples, or troubleshooting, consult the in-code comments or contact the project maintainer.
