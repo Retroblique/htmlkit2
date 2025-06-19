@@ -19,7 +19,7 @@ desktop.ini
 .idea/
 
 # test scripts
-test.py 
+# test.py 
 
 # caches
 __pycache__
