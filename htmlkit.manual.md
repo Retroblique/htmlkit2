@@ -1,215 +1,228 @@
-# htmlkit module usage manual
+htmlkit2 Python Module - User Guide
+==================================
 
-Python module for quick generation of basic html and css code.
+htmlkit2 is a Python toolkit for generating valid HTML and CSS programmatically. It offers classes and functions for building complete web pages, tables, lists, and style declarations directly from your Python scripts.
 
-## htmlpage class
+--------------------------------------------------------------------------------
+Getting Started
 
-### initialisation
-`htmlpagename = htmllkit.htmlpage(title)`
+Import the module at the top of your script:
+    import htmlkit2
 
-The title argument is optional and if omitted a default value of "title" will be used
+--------------------------------------------------------------------------------
+Class Reference
 
-Creates a the basic outline of a web page in html5
+1. HtmlPage
+-----------
+Create and manage the structure and contents of a full HTML page.
 
-At initialisation this will be:
-```
-<!DOCTYPE html>
-<html>
-<head>
-<title>title</title>
-<!-- style here -->
-</head>
-<body>
-</body></html>
-```
+Initialization:
+    page = htmlkit2.HtmlPage(title="My Page")
+    # The title argument is optional. Default is "title".
 
-### page method
-'htmlpage.page()'
-returns the text of the htmlpage object webpage
+Core Methods:
+  - page.page()
+      Returns the fully composed HTML page as a string.
 
-### save method
-`webpage.save(filename)`
-Saves the text of the htmlpage to textfile filename.
-This is the equivalent of
-`f.write(htmlpagename.page()) #where f is a file object`
+  - page.save(filename)
+      Writes the HTML page to a file.
 
-### set_title method
-`webpage.set_title(titlename)`
-Sets the the title element to titlename. Replaces any previous title value
+  - page.set_title(title)
+      Sets or replaces the <title> of the page.
 
-### set_style method
-`webpage.set_style(css,mode)`
-adds a css file to the htmlpage
-css is the name of the style file
-mode can be either "external" or "internal". The default mode is "internal" if the parameter is omitted.
+  - page.set_style(css, mode='internal')
+      Adds a CSS file to the <head> section.
+      mode="external": Links the file with <link>.
+      mode="internal": Embeds contents in a <style> element.
 
-external mode adds a link tag into the head of the htmlpage
+  - page.add_style(css_text)
+      Adds the given CSS as an internal <style> block.
 
-example
-`webpage.set_style("htmlkit.css","external")`
-will insert the line 
-`<link rel="stylesheet" href="htmlkit.css">`
+  - page.append_body(html)
+      Appends HTML or text to the end of <body>.
 
-internal mode will copy the contents of the style file into the style element in the head of the htmlpage
-example
-`webpage.set_style("htmlkit.css","internal")`
+  - page.set_body(html_list)
+      Replaces all <body> content with html_list (a list of HTML/text).
 
-will insert
-```
-<style>
-/* content of htmlkit.css file */
-</style>
-```
-Note - in either mode this method does not check that the contents of the css file is valid css code.
+--------------------------------------------------------------------------------
 
-### add_style method
-`htmlpagename.add_style(text)`
-inserts text into the style element in the head the htmlpage
+2. ItemList
+-----------
+Create HTML ordered (<ol>) or unordered (<ul>) lists.
 
-Note - this method does not check that the text is valid css code
+Initialization:
+    mylist = htmlkit2.ItemList()
+    # For unordered lists (default).
 
-### append_body method
-`htmlpagename.append_body(text)`
-appends text to the body element of the html page at the end of any existing context
+    mylist = htmlkit2.ItemList(startno=1)
+    # For ordered lists.
 
-### set_body method
-`htmlpagename.set_body(textblock)`
-Sets textblock as the contents of the <body> element in htmlpage. Will replace any exisiting context
+Methods:
+  - mylist.add_item(item)
+      Adds an item to the end of the list.
 
+  - mylist.add_list(list_of_items)
+      Adds multiple items to the list from a Python list.
 
-## class element
+  - mylist.get_list()
+      Returns the complete HTML <ul> or <ol> as a string.
 
-Defines html element tags, with option of specifying a class attribute. Particularly intended for span and div element. 
+  - mylist.get_body()
+      Returns the list of items (not formatted as HTML).
 
-`tagname = htmlkit.element(tagname,classname)`
-defines elements 
+Example:
+    shopping = htmlkit2.ItemList()
+    shopping.add_item("Milk")
+    shopping.add_item("Eggs")
+    print(shopping.get_list())
 
-elementname.tag(text)
+--------------------------------------------------------------------------------
 
-example
-`boldtext = htmlkit.element("strong")
-boldtext.tag("Alpha")`
-will return
-`<strong>Alpha</strong>`
+3. Table
+--------
+Programmatically build HTML tables.
 
-italictext = htmlkit.element("span","italic")
-italictext.tag("Beta")
-will return
-<span class="italic">Beta</span>
+Initialization:
+    t = htmlkit2.Table()
 
-This similar but more flexible than the tag function
+Methods:
+  - t.add_head(header)
+      Adds a column header.
 
-## itemlist class
+  - t.add_row(list_of_cells)
+      Adds a row (give a list of cells).
 
-list = htmlkit.itemlist()
-create an empty ordered or unordered 
+  - t.new_row(); t.add_cell(cell); t.end_row()
+      Step-by-step row construction.
 
-### list.get_list()
-returns the text of the itenlist object
+  - t.get_table()
+      Returns the complete <table> HTML string.
 
-### list.add_item(text)
-insert a new item into the itemlist
+  - t.set_class(classname)
+      Set a CSS class for the table.
 
-## table class 
-creates html tables
+  - t.set_id(id_str)
+      Set the HTML id for the table.
 
-table = htmlkit.table()
-generated basic table
+  - t.set_caption(caption)
+      Add a caption to the table.
 
-### get_table() method
-returns the html text of the table object
+  - t.borderon() / t.borderoff()
+      Show or hide table borders.
 
-example
-`t = htmlkit.table()
-t.get_table()`
-returns
-```
-<table border="1" cellspacing="0">
-</table>
-```
+Example:
+    t = htmlkit2.Table()
+    t.add_head("Name")
+    t.add_head("Score")
+    t.add_row(["Alice", "90"])
+    t.add_row(["Bob", "85"])
+    print(t.get_table())
 
+--------------------------------------------------------------------------------
 
+4. Element
+----------
+Create custom HTML tags, optionally with a class.
 
-## html functions
+Usage:
+    el = htmlkit2.Element("span", "highlight")
+    print(el.tag("Important text"))
+    # Result: <span class="highlight">Important text</span>
 
-### comment function
-htmlkit.comment(text)
-returns text inside comment tags
-example
-htmlkit.comment("simple comment"))
-returns
-```
-<!-- simple comment -->
-```
+--------------------------------------------------------------------------------
 
-htmlkit.commentblock(text)
-returns text in multi-line comment
-example
-htmlkit.commentblock("not so\nsimple comment")
-```
-<!--
-not so
-simple comment
--->
-```
+5. AutoID
+---------
+Generate unique sequential IDs or class names for HTML elements.
 
-### tag function
-htmlkit.tag(tagname,text)
-returns text as an element surrounded by tagname tag
-example
-```
-tag("p","paragraph text")
-```
-returns
-```
-<p>paragraph text</p>
-```
+Usage:
+    auto = htmlkit2.AutoID(prefix="item", startvalue=1)
+    print(auto.auto())  # item1
+    print(auto.auto())  # item2
+    auto.reset()        # back to item1
 
-### link function
-htmlkit.link(src,text)
-creates a hyperlink
+--------------------------------------------------------------------------------
+HTML Helper Functions
 
-example
-htmlkit.link<"https://apod.nasa.gov/apod/astropix.html","APOD")
-returns
-<a href="https://apod.nasa.gov/apod/astropix.html">APOD</a>
+- tag(tagname, text)
+    Create an element: htmlkit2.tag("p", "Hello") → <p>Hello</p>
 
-### image function
-htmlkit.image(src,alt)
+- heading(level, text, idno="")
+    Create a header: htmlkit2.heading(2, "Subtitle") → <h2>Subtitle</h2>
 
-### safetext function
-htmlkit.safetext(text)
-Replaces & > < characters in text with entity codes
+- link(url, text)
+    Create a link: htmlkit2.link("https://python.org", "Python") → <a href="https://python.org">Python</a>
 
-example
-```
-htmlkit.safetext("a-b-c-d-e-f-g-<-&->")
-```
-returns 
-```
-a-b-c-d-e-f-g-&lt;-&amp;-&gt;
-```
-## css functions
+- image(src, alt="")
+    Image tag: htmlkit2.image("cat.jpg", "A cat") → <img src="cat.jpg" alt="A cat">
 
-### style function
-htmlkit.style(selector,*properties)
+- comment(text)
+    Single-line HTML comment: htmlkit2.comment("note") → <!-- note -->
 
-### ink function
-htmlkit.ink(textcolour)
-returns style declaration to set text colour to textcolur
+- commentblock(text)
+    Multi-line HTML comment: htmlkit2.commentblock("line 1\nline 2")
 
-example
-htmlkit.ink("red")
-returns
-{color:red);
+- hr()
+    Horizontal rule: htmlkit2.hr() → <hr>
 
-### paper function
-htmlkit.paper(backgroundcolour)
-returns style declaration to return background colour to backgroundcolour
+- safetext(text)
+    Safely escape &, <, >: htmlkit2.safetext("a < b & c > d") → a &lt; b &amp; c &gt; d
 
-example
-htmlkit.paper("white")
-returns
-{background-color:white};
- 
- 
+--------------------------------------------------------------------------------
+CSS Helper Functions
+
+- style(selector, *props)
+    Create a CSS rule: htmlkit2.style("p", "font-size:16px", "color:blue")
+    → p{font-size:16px; color:blue;}
+
+- ink(color)
+    CSS for text color: htmlkit2.ink("red") → color:red;
+
+- paper(color)
+    CSS for background color: htmlkit2.paper("white") → background-color:white;
+
+- italic()
+    CSS for italics: htmlkit2.italic() → font-style: italic;
+
+- bold()
+    CSS for bold: htmlkit2.bold() → font-weight: bold;
+
+- smallcaps()
+    CSS for small-caps: htmlkit2.smallcaps() → font-variant: small-caps;
+
+--------------------------------------------------------------------------------
+Complete Example
+
+import htmlkit
+
+page = htmlkit2.HtmlPage("Sample Page")
+page.add_style("body { font-family: sans-serif; }")
+page.append_body(htmlkit2.heading(1, "Welcome!"))
+
+fruits = htmlkit2.ItemList()
+fruits.add_list(["Apple", "Banana", "Cherry"])
+page.append_body(fruits.get_list())
+
+table = htmlkit2.Table()
+table.add_head("Name")
+table.add_head("Score")
+table.add_row(["Alice", "92"])
+table.add_row(["Bob", "88"])
+page.append_body(table.get_table())
+
+page.save("sample.html")
+
+--------------------------------------------------------------------------------
+Summary
+
+- HtmlPage: Generate and output entire HTML documents.
+- ItemList: Easily build <ul>/<ol> lists.
+- Table: Programmatically build tables.
+- Element: Custom tag or span/div element creator.
+- AutoID: Automatic numbering for element IDs/classes.
+- Helper functions: tags, links, headings, comments, images, safe text, and CSS.
+
+htmlkit lets you automate and script the authoring of HTML/CSS for web pages, reports, and custom output—entirely from Python!
+
+--------------------------------------------------------------------------------
+For more details, example usage, or troubleshooting, consult the in-code comments or contact the project maintainer.
