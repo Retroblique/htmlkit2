@@ -1,5 +1,3 @@
-Absolutely! Here’s a clear, Markdown-formatted changelog for your dev branch, using best practices. This version is general (no version numbers), and refers to the dev branch throughout:
-
 ```markdown
 # Changelog
 
