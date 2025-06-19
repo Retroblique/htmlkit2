@@ -1,10 +1,6 @@
-Certainly! Here’s a revised `README.md` that acknowledges the original author and project, and notes that your version is a backwards-compatible fork:
+# htmlkit2
 
----
-
-# htmlkit
-
-**htmlkit** is a lightweight Python toolkit for generating HTML and CSS programmatically. This project is a backwards-compatible fork of the original [htmlkit](https://github.com/adclawrence/htmlkit) by Andrew Lawrence ([adclawrence](https://github.com/adclawrence)), updated with modern Python conventions, improved safety, and enhanced documentation—while preserving support for legacy code.
+**htmlkit2** is a lightweight Python toolkit for generating HTML and CSS programmatically. This project is a backwards-compatible fork of the original [htmlkit](https://github.com/adclawrence/htmlkit) by Andrew Lawrence ([adclawrence](https://github.com/adclawrence)), updated with modern Python conventions, improved safety, and enhanced documentation—while preserving support for legacy code.
 
 ---
 
@@ -30,7 +26,7 @@ No external dependencies are required (built on Python’s standard library).
 ## Quick Example
 
 ```python
-import htmlkit
+import htmlkit2 as htmlkit
 
 # Create a new HTML page
 page = htmlkit.HtmlPage("Demo Page")
@@ -95,7 +91,7 @@ Please use [Issues](https://github.com/your-repo/issues) or submit a Pull Reques
 ## Credits
 
 - Original htmlkit author: Andrew Lawrence ([adclawrence](https://github.com/adclawrence))
-- This fork: Maintained by [Your Name]
+- This fork: Maintained by Mark Stevens
 
 ---
 
