@@ -23,3 +23,6 @@ desktop.ini
 
 # caches
 __pycache__
+
+# virtual environments
+.venv/

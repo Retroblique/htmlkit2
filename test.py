@@ -78,3 +78,33 @@ page.append_body(htmlkit.commentblock("This is a multiline\nHTML comment block")
 # --- Save to file ---
 page.save("test_output.html")
 print("test_output.html has been created with all htmlkit features demonstrated.")
+
+def test_css_file_handling():
+    # Create a page instance
+    page = htmlkit.HtmlPage("Test CSS Handling")
+
+    # Test with non-existent CSS file
+    print("Testing with non-existent CSS file:")
+    page.set_style("non_existent.css")
+
+    # Assume a valid CSS file is available (handle separately in real test)
+    # print("Testing with existing CSS file:")
+    # page.set_style("path_to_valid_css_file.css")
+
+def test_html_file_writing():
+    page = htmlkit.HtmlPage("Test HTML Writing")
+
+    # Add simple content
+    page.append_body(htmlkit.tag("p", "Sample content"))
+
+    # Test file writing in a restricted directory (e.g., root on UNIX systems)
+    print("Testing writing to a restricted directory:")
+    page.save("/restricted_directory/output.html")
+
+    # Test successful file write
+    print("Testing writing to a permitted directory:")
+    page.save("output.html")
+
+if __name__ == "__main__":
+    test_css_file_handling()
+    test_html_file_writing()

@@ -1,6 +1,7 @@
 # HTML and CSS utilities for generating web pages programmatically.
 
 import re
+import os
 
 class HtmlPage:
     # Represents and constructs an HTML web page.
@@ -19,16 +20,19 @@ class HtmlPage:
         self.title = title
 
     def set_style(self, css, mode="internal"):
-        # Attaches CSS to the page.
-        # 'external': Link a CSS file in the head.
-        # 'internal': Embed CSS directly in a <style> tag.
         if css != "":
             if mode == "external":
                 self.style_external.append(f'<link rel="stylesheet" href="{css}">')
             else:
-                with open(css, "r") as cssfile:
-                    csstext = cssfile.read()
-                self.style_internal.append(csstext)
+                if os.path.exists(css):
+                    try:
+                        with open(css, "r") as cssfile:
+                            csstext = cssfile.read()
+                        self.style_internal.append(csstext)
+                    except IOError:
+                        print(f"Error: Could not read file {css}.")
+                else:
+                    print(f"Error: CSS file {css} does not exist.")
 
     def add_style(self, text):
         # Appends a given CSS text block to internal styles.
@@ -63,9 +67,11 @@ class HtmlPage:
         self.body.append(text)
 
     def save(self, filename):
-        # Saves the generated HTML page to a file.
-        with open(filename, "w") as fileout:
-            fileout.write(self.page())
+        try:
+            with open(filename, "w") as fileout:
+                fileout.write(self.page())
+        except IOError:
+            print(f"Error: Could not write to file {filename}.")
 
 
 class ItemList:
@@ -308,6 +314,8 @@ itemlist = ItemList
 table = Table
 element = Element
 autoid = AutoID
+
+print("Well, we got there!")
 
 if __name__ == "__main__":
     main()
