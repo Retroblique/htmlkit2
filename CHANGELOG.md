@@ -6,6 +6,17 @@ This format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.1.0] - 2025-06-23
+
+### Added
+- **Enhanced `<head>` Management**: Users can now add arbitrary elements to the `<head>`, such as `<meta>`, `<script>`, or custom tags, using the `add_to_head` method.
+
+### Improved
+- **File Handling Robustness**: Introduced checks to ensure files exist before attempting to open them, along with more graceful handling of file-related exceptions.
+- **Safe Write Operations**: Enhanced `save` method with user-friendly error handling during file write operations. 
+
+---
+
 ## [1.0.0] - 2025-06-18
 
 ### Added

@@ -1,3 +1,4 @@
+# htmlkit2.py
 # HTML and CSS utilities for generating web pages programmatically.
 
 import re
@@ -20,6 +21,7 @@ class HtmlPage:
         self.title = title
 
     def set_style(self, css, mode="internal"):
+        # Attaches CSS to the page.
         if css != "":
             if mode == "external":
                 self.style_external.append(f'<link rel="stylesheet" href="{css}">')
@@ -38,6 +40,10 @@ class HtmlPage:
         # Appends a given CSS text block to internal styles.
         self.style_internal.append(text)
 
+    def add_to_head(self, element):
+        # Adds an arbitrary HTML element to the head.
+        self.head.append(element)
+
     def page(self):
         # Builds and returns the complete HTML page as a string.
         pagetext = []
@@ -45,6 +51,9 @@ class HtmlPage:
         pagetext.append("<html>\n<head>")
         pagetext.append(f"<title>{self.title}</title>")
         pagetext.append(comment("style here"))
+
+        # Include custom head elements
+        pagetext.extend(self.head)
 
         if self.style_external:
             pagetext.extend(self.style_external)
@@ -67,6 +76,7 @@ class HtmlPage:
         self.body.append(text)
 
     def save(self, filename):
+        # Saves the generated HTML page to a file.
         try:
             with open(filename, "w") as fileout:
                 fileout.write(self.page())
@@ -314,8 +324,6 @@ itemlist = ItemList
 table = Table
 element = Element
 autoid = AutoID
-
-print("Well, we got there!")
 
 if __name__ == "__main__":
     main()
